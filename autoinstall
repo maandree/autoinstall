@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+success=1
+
+if [[ ! -f "Makefile" ]] && [[ ! -f "makefile" ]]; then
+    if [[ ! -f "configure" ]] && [[ ! -f "configure.sh" ]]; then
+	if [[ ! -f "autogen" ]] && [[ ! -f "autogen.sh" ]]; then
+	    if [[ -f "bootstrap.sh" ]]; then
+		chmod a+r "bootstrap.sh"
+		./"bootstrap.sh" || success=0
+	    elif [[ -f "bootstrap" ]]; then
+		chmod a+r "bootstrap"
+		./"bootstrap" || success=0
+	    else
+		success=0
+	    fi
+	fi
+	if [[ $success = 1 ]]; then
+	    if [[ -f "autogen.sh" ]]; then
+		chmod a+r "autogen.sh"
+		./"autogen.sh" || success=0
+	    elif [[ -f "autogen" ]]; then
+		chmod a+r "autogen"
+		./"autogen" || success=0
+	    else
+		success=0
+	    fi
+	fi
+    fi
+    if [[ $success = 1 ]]; then
+	if [[ -f "configure.sh" ]]; then
+	    chmod a+r "configure.sh"
+	    ./"configure.sh" || success=0
+	elif [[ -f "configure" ]]; then
+	    chmod a+r "configure"
+	    ./"configure" || success=0
+	else
+	    success=0
+	fi
+    fi
+fi
+if [[ $success = 1 ]]; then
+    if [[ -f "Makefile" ]] || [[ -f "makefile" ]]; then
+	(make && make install) || success=0
+    else
+	success=0
+    fi
+fi
+
+[[ $success = 0 ]] &&
+    echo -e '\e[1;31m::\e[39mDo not know how to install, please help...\e[21m'
+
+exit $(( 1 - $success ))
