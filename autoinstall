@@ -41,7 +41,7 @@ if [[ ! -f "Makefile" ]] && [[ ! -f "makefile" ]]; then
 fi
 if [[ $success = 1 ]]; then
     if [[ -f "Makefile" ]] || [[ -f "makefile" ]]; then
-	(make && make install) || success=0
+	(make -B && make -B install) || success=0
     else
 	success=0
     fi
