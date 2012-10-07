@@ -1,0 +1,18 @@
+Ultimate aims of this project:
+
+	Install any package with a normal build system:
+		bootstrap{,.sh}
+		autogen{,.sh}
+		configure{,.sh}
+		{M,m}akefile
+		{setup,install}{,.{pl,py,sh}}
+	
+	Build a PKGBUILD file that is installable with `makepkg -si`
+	
+	Detect licenses if a package
+	Detect licenses and determine whether or not it is Free Software
+	Detect licenses and determine whether or not it is contract based
+	
+	Detect depencenices of a package
+	Detect depencenices of a package and test whether or not they are satisified
+
