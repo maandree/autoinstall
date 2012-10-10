@@ -6,10 +6,10 @@ if [[ ! -f "Makefile" ]] && [[ ! -f "makefile" ]]; then
     if [[ ! -f "configure" ]] && [[ ! -f "configure.sh" ]]; then
 	if [[ ! -f "autogen" ]] && [[ ! -f "autogen.sh" ]]; then
 	    if [[ -f "bootstrap.sh" ]]; then
-		chmod a+r "bootstrap.sh"
+		chmod a+rx "bootstrap.sh"
 		./"bootstrap.sh" || success=0
 	    elif [[ -f "bootstrap" ]]; then
-		chmod a+r "bootstrap"
+		chmod a+rx "bootstrap"
 		./"bootstrap" || success=0
 	    else
 		success=0
@@ -17,10 +17,10 @@ if [[ ! -f "Makefile" ]] && [[ ! -f "makefile" ]]; then
 	fi
 	if [[ $success = 1 ]]; then
 	    if [[ -f "autogen.sh" ]]; then
-		chmod a+r "autogen.sh"
+		chmod a+rx "autogen.sh"
 		./"autogen.sh" || success=0
 	    elif [[ -f "autogen" ]]; then
-		chmod a+r "autogen"
+		chmod a+rx "autogen"
 		./"autogen" || success=0
 	    else
 		success=0
@@ -29,10 +29,10 @@ if [[ ! -f "Makefile" ]] && [[ ! -f "makefile" ]]; then
     fi
     if [[ $success = 1 ]]; then
 	if [[ -f "configure.sh" ]]; then
-	    chmod a+r "configure.sh"
+	    chmod a+rx "configure.sh"
 	    ./"configure.sh" || success=0
 	elif [[ -f "configure" ]]; then
-	    chmod a+r "configure"
+	    chmod a+rx "configure"
 	    ./"configure" || success=0
 	else
 	    success=0
