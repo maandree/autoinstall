@@ -2,50 +2,76 @@
 
 success=1
 
-if [[ ! -f "Makefile" ]] && [[ ! -f "makefile" ]]; then
-    if [[ ! -f "configure" ]] && [[ ! -f "configure.sh" ]]; then
-	if [[ ! -f "autogen" ]] && [[ ! -f "autogen.sh" ]]; then
-	    if [[ -f "bootstrap.sh" ]]; then
-		chmod a+rx "bootstrap.sh"
-		./"bootstrap.sh" || success=0
-	    elif [[ -f "bootstrap" ]]; then
-		chmod a+rx "bootstrap"
-		./"bootstrap" || success=0
-	    else
-		success=0
-	    fi
-	fi
-	if [[ $success = 1 ]]; then
-	    if [[ -f "autogen.sh" ]]; then
-		chmod a+rx "autogen.sh"
-		./"autogen.sh" || success=0
-	    elif [[ -f "autogen" ]]; then
-		chmod a+rx "autogen"
-		./"autogen" || success=0
-	    else
-		success=0
-	    fi
-	fi
+if [[ -f "setup" ]]; then
+    chmod a+rx "setup"
+    ./"setup" install || ./"setup" || success=0
+elif [[ -f "setup.pl" ]]; then
+    chmod a+rx "setup.pl"
+    ./"setup.pl" install || ./"setup.pl" || success=0
+elif [[ -f "setup.py" ]]; then
+    chmod a+rx "setup.py"
+    ./"setup.py" install || ./"setup.py" || success=0
+elif [[ -f "setup.sh" ]]; then
+    chmod a+rx "setup.sh"
+    ./"setup.sh" install || ./"setup.sh" || success=0
+elif [[ -f "install" ]]; then
+    chmod a+rx "install"
+    ./"install" install || ./"install" || success=0
+elif [[ -f "install.pl" ]]; then
+    chmod a+rx "install.pl"
+    ./"install.pl" install || ./"install.pl" || success=0
+elif [[ -f "install.py" ]]; then
+    chmod a+rx "install.py"
+    ./"install.py" install || ./"install.py" || success=0
+elif [[ -f "install.sh" ]]; then
+    chmod a+rx "install.sh"
+    ./"install.sh" install || ./"install.sh" || success=0
+else
+    if [[ ! -f "Makefile" ]] && [[ ! -f "makefile" ]]; then
+        if [[ ! -f "configure" ]] && [[ ! -f "configure.sh" ]]; then
+            if [[ ! -f "autogen" ]] && [[ ! -f "autogen.sh" ]]; then
+                if [[ -f "bootstrap.sh" ]]; then
+                    chmod a+rx "bootstrap.sh"
+                    ./"bootstrap.sh" || success=0
+                elif [[ -f "bootstrap" ]]; then
+                    chmod a+rx "bootstrap"
+                    ./"bootstrap" || success=0
+                else
+                    success=0
+                fi
+            fi
+            if [[ $success = 1 ]]; then
+                if [[ -f "autogen.sh" ]]; then
+                    chmod a+rx "autogen.sh"
+                    ./"autogen.sh" || success=0
+                elif [[ -f "autogen" ]]; then
+                    chmod a+rx "autogen"
+                    ./"autogen" || success=0
+                else
+                    success=0
+                fi
+            fi
+        fi
+        if [[ $success = 1 ]]; then
+            if [[ -f "configure.sh" ]]; then
+                chmod a+rx "configure.sh"
+                ./"configure.sh" || success=0
+            elif [[ -f "configure" ]]; then
+                chmod a+rx "configure"
+                ./"configure" || success=0
+            else
+                success=0
+            fi
+        fi
     fi
     if [[ $success = 1 ]]; then
-	if [[ -f "configure.sh" ]]; then
-	    chmod a+rx "configure.sh"
-	    ./"configure.sh" || success=0
-	elif [[ -f "configure" ]]; then
-	    chmod a+rx "configure"
-	    ./"configure" || success=0
-	else
-	    success=0
-	fi
+        if [[ -f "Makefile" ]] || [[ -f "makefile" ]]; then
+            (make -B && make -B install) || success=0
+        else
+            success=0
+        fi
     fi
-fi
-if [[ $success = 1 ]]; then
-    if [[ -f "Makefile" ]] || [[ -f "makefile" ]]; then
-	(make -B && make -B install) || success=0
-    else
-	success=0
-    fi
-fi
+if
 
 [[ $success = 0 ]] &&
     echo -e '\e[1;31m::\e[39mDo not know how to install, please help...\e[21m'
