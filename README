@@ -9,7 +9,7 @@ Ultimate aims of this project:
 	
 	Build a PKGBUILD file that is installable with `makepkg -si`
 	
-	Detect licenses if a package
+	Detect licenses of a package
 	Detect licenses and determine whether or not it is Free Software
 	Detect licenses and determine whether or not it is contract based
 	
